@@ -13,10 +13,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function renderTasks() {
     tasklist.innerHTML = "";
-    const searchTerm = searchTask.value.toLowerCase();
+
     tasks.forEach(function (task) {
-      const taskTitle = task.title.toLowerCase();
-      if (taskTitle.includes(searchTerm)) {
+      const taskTitle = task.title;
+      if (taskTitle.includes(searchTask.value.toLowerCase())) {
+        console.log(searchTask.value.toLowerCase());
+
         const li = document.createElement("li");
         li.innerHTML = ` <div class="task-info">
       <input type="checkbox" name="done" class="done" data-id=${task.id} ${
