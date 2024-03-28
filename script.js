@@ -15,12 +15,11 @@ document.addEventListener("DOMContentLoaded", function () {
     tasklist.innerHTML = "";
 
     tasks.forEach(function (task) {
-      const taskTitle = task.title;
-      if (taskTitle.includes(searchTask.value.toLowerCase())) {
-        console.log(searchTask.value.toLowerCase());
-
+      if (task.title.toLowerCase().includes(searchTask.value.toLowerCase())) {
         const li = document.createElement("li");
-        li.innerHTML = ` <div class="task-info">
+        li.innerHTML = ` <div class="task-info ${
+          task.completed ? "completed" : ""
+        }">
       <input type="checkbox" name="done" class="done" data-id=${task.id} ${
           task.completed ? "checked" : ""
         } />
@@ -32,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
         tasklist.appendChild(li);
       }
     });
-
     if (tasks.length != 0) {
       listTitle.classList.remove("hidden");
       searchTask.classList.remove("hidden");
@@ -63,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const inputValue = newTask.value;
 
     if (inputValue.length <= 1) {
-      alert("Title should be more than 1 character");
+      alert("Title should have more than 1 character");
     } else {
       addTask(inputValue);
     }
@@ -74,6 +72,8 @@ document.addEventListener("DOMContentLoaded", function () {
     saveTasks();
     renderTasks();
   }
+
+  searchTask.addEventListener("input", renderTasks);
 
   tasklist.addEventListener("click", function (e) {
     if (e.target.classList.contains("delete-btn")) {
